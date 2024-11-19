@@ -1,16 +1,16 @@
-import { View, Text } from "react-native";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Stack } from "expo-router";
 import React from "react";
-import { Slot, SplashScreen } from "expo-router";
-
 import "../global.css";
-import { nowPlayinAction } from "@/core/actions/movies/now-playing.action";
+
+// Creando cliente
+const queryClient = new QueryClient();
 
 const RootLayout = () => {
-  nowPlayinAction()
   return (
-    <View>
-      <Text className="text-4xl">Root Layout</Text>
-    </View>
+    <QueryClientProvider client={queryClient}>
+      <Stack screenOptions={{ headerShown: false }} />
+    </QueryClientProvider>
   );
 };
 
