@@ -7,7 +7,7 @@ import "../global.css";
 const RootLayout = () => {
   return (
     <View>
-      <Text>Root Layout</Text>
+      <Text className="text-4xl">Root Layout</Text>
     </View>
   );
 };
