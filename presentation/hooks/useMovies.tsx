@@ -2,7 +2,7 @@ import { nowPlayinAction } from "@/core/actions/movies/now-playing.action";
 import { popularMovieAction } from "@/core/actions/movies/popular.action";
 import { topRatedMovieAction } from "@/core/actions/movies/top-rated.action";
 import { upcomingMovieAction } from "@/core/actions/movies/upcoming.action";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 export const useMovies = () => {
   // Queries
@@ -24,10 +24,16 @@ export const useMovies = () => {
     staleTime: 1000 * 60 * 60 * 24, // 24 hs
   });
 
-  const topRatedQuery = useQuery({
+  // Para lo que es infinityScroll
+  const topRatedQuery = useInfiniteQuery({
+    initialPageParam: 1,
     queryKey: ["movies", "top-rated"],
-    queryFn: () => topRatedMovieAction(),
+    queryFn: ({ pageParam }) => {
+      console.log({ pageParam });
+      return topRatedMovieAction({ page: pageParam });
+    },
     staleTime: 1000 * 60 * 60 * 24, // 24 hs
+    getNextPageParam: (lastPage, pages) => pages.length + 1,
   });
 
   return {

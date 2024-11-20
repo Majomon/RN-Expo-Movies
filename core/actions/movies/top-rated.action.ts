@@ -2,9 +2,21 @@ import { MovieDBMovieResponse } from "@/infrastructure/interfaces/moviedb-respon
 import { movieApi } from "../api/movie-api";
 import { MovieMapper } from "@/infrastructure/mappers/movie.mapper";
 
-export const topRatedMovieAction = async () => {
+interface Options {
+  page?: number;
+  limit?: number;
+}
+
+export const topRatedMovieAction = async ({
+  page = 1,
+  limit = 10,
+}: Options) => {
   try {
-    const { data } = await movieApi.get<MovieDBMovieResponse>("/top_rated");
+    const { data } = await movieApi.get<MovieDBMovieResponse>("/top_rated", {
+      params: {
+        page: page,
+      },
+    });
     // console.log(JSON.stringify(data, null, 2));
 
     // Es lo mismo que el que esta abajo . Si tengo un argumento que paso a otra funcion puedo obviarlo

@@ -1,5 +1,5 @@
 import { Movie } from "@/infrastructure/interfaces/movie.interface";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   FlatList,
   NativeScrollEvent,
@@ -25,6 +25,12 @@ export const MovieHorizontalList = ({
 }: Props) => {
   const isLoading = useRef(false);
 
+  useEffect(() => {
+    setTimeout(() => {
+      isLoading.current = false;
+    }, 200);
+  }, [movies]);
+
   const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     if (isLoading.current) return;
 
@@ -38,7 +44,7 @@ export const MovieHorizontalList = ({
     isLoading.current = true;
 
     console.log("Cargar siguientes peliculas");
-    
+
     loadNextPage && loadNextPage();
   };
 
@@ -51,7 +57,7 @@ export const MovieHorizontalList = ({
         horizontal
         data={movies}
         showsHorizontalScrollIndicator={false}
-        keyExtractor={(item) => `${item.id}`}
+        keyExtractor={(item, index) => `${item.id}-${index}`}
         renderItem={({ item }) => (
           <MoviePoster id={item.id} poster={item.poster} smallPoster />
         )}
