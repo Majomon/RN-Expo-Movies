@@ -6,12 +6,15 @@ import { MoviePoster } from "./MoviePoster";
 interface Props {
   title?: string;
   movies: Movie[];
+  className?: string;
 }
 
-export const MovieHorizontalList = ({ title, movies }: Props) => {
+export const MovieHorizontalList = ({ title, movies, className }: Props) => {
   return (
-    <View>
-      {title && <Text className="text-2xl font-bold px-4 mb-2 mt-4">{title}</Text>}
+    <View className={`${className}`}>
+      {title && (
+        <Text className="text-2xl font-bold px-4 mb-2 mt-4">{title}</Text>
+      )}
       <FlatList
         horizontal
         data={movies}
