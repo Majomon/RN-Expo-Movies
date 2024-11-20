@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import { LinearGradient } from "expo-linear-gradient";
 
 interface Props {
   poster: string;
@@ -20,6 +21,19 @@ export const MovieHeader = ({ poster, originalTitle, title }: Props) => {
 
   return (
     <>
+      {/* Gradiente */}
+      <LinearGradient
+        colors={["rgba(0,0,0,0.3)", "transparent"]}
+        style={{
+          width: "100%",
+          height: screenHeight * 0.4,
+          position: "absolute",
+          zIndex: 1,
+        }}
+        start={[0, 0]}
+      />
+
+      {/* Botón para volver */}
       <View
         style={{
           position: "absolute",
