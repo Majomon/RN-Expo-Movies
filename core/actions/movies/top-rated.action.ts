@@ -1,4 +1,4 @@
-import { MovieDBMovieResponse } from "@/infrastructure/interfaces/moviedb-response";
+import { MovieDBMoviesResponse } from "@/infrastructure/interfaces/moviedb-response";
 import { movieApi } from "../api/movie-api";
 import { MovieMapper } from "@/infrastructure/mappers/movie.mapper";
 
@@ -12,7 +12,7 @@ export const topRatedMovieAction = async ({
   limit = 10,
 }: Options) => {
   try {
-    const { data } = await movieApi.get<MovieDBMovieResponse>("/top_rated", {
+    const { data } = await movieApi.get<MovieDBMoviesResponse>("/top_rated", {
       params: {
         page: page,
       },

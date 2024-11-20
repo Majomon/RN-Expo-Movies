@@ -1,10 +1,10 @@
-import { MovieDBMovieResponse } from "@/infrastructure/interfaces/moviedb-response";
+import { MovieDBMoviesResponse } from "@/infrastructure/interfaces/moviedb-response";
 import { movieApi } from "../api/movie-api";
 import { MovieMapper } from "@/infrastructure/mappers/movie.mapper";
 
 export const upcomingMovieAction = async () => {
   try {
-    const { data } = await movieApi.get<MovieDBMovieResponse>("/upcoming");
+    const { data } = await movieApi.get<MovieDBMoviesResponse>("/upcoming");
     // console.log(JSON.stringify(data, null, 2));
 
     // Es lo mismo que el que esta abajo . Si tengo un argumento que paso a otra funcion puedo obviarlo

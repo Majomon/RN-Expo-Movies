@@ -1,4 +1,4 @@
-export interface MovieDBMovieResponse {
+export interface MovieDBMoviesResponse {
   dates: Dates;
   page: number;
   results: Result[];
