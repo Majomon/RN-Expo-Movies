@@ -1,15 +1,47 @@
 import { Movie } from "@/infrastructure/interfaces/movie.interface";
-import React from "react";
-import { FlatList, Text, View } from "react-native";
+import React, { useRef } from "react";
+import {
+  FlatList,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  Text,
+  View,
+} from "react-native";
 import { MoviePoster } from "./MoviePoster";
 
 interface Props {
   title?: string;
   movies: Movie[];
   className?: string;
+
+  loadNextPage?: () => void;
 }
 
-export const MovieHorizontalList = ({ title, movies, className }: Props) => {
+export const MovieHorizontalList = ({
+  title,
+  movies,
+  className,
+  loadNextPage,
+}: Props) => {
+  const isLoading = useRef(false);
+
+  const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    if (isLoading.current) return;
+
+    const { contentOffset, layoutMeasurement, contentSize } = event.nativeEvent;
+
+    const isEndReached =
+      contentOffset.x + layoutMeasurement.width + 600 >= contentSize.width;
+
+    if (!isEndReached) return;
+
+    isLoading.current = true;
+
+    console.log("Cargar siguientes peliculas");
+    
+    loadNextPage && loadNextPage();
+  };
+
   return (
     <View className={`${className}`}>
       {title && (
@@ -23,6 +55,7 @@ export const MovieHorizontalList = ({ title, movies, className }: Props) => {
         renderItem={({ item }) => (
           <MoviePoster id={item.id} poster={item.poster} smallPoster />
         )}
+        onScroll={onScroll}
       />
     </View>
   );
