@@ -1,0 +1,25 @@
+{
+  "cli": {
+    "version": ">= 14.2.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_MOVIE_DB_URL": "https://api.themoviedb.org/3/movie",
+        "EXPO_PUBLIC_MOVIE_DB_KEY": "3b631b0a18599ad865e9044ad200434e"
+      }
+    },
+    "production": {
+      "autoIncrement": true
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
